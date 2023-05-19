@@ -5,11 +5,93 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/style.html">
-    <link rel="stylesheet" href="/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js">
+    <link rel="stylesheet" href="shopping.css">
+    <link rel="stylesheet" href="./bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./bootstrap-5.3.0-alpha1-dist/js/bootstrap.js">
+    <style>
+        #mart{
+            color: rgb(85, 149, 107);
+        }
+        #user{
+            margin-left: 40px;
+            width: 15%;
+            height: 50px;
+            border-radius: 10px;
+            background-color: rgb(221, 229, 234);
+            color: rgb(32, 29, 29);
+            font-size: 20px;
+        }
+    </style>
 </head>
-<body>
+<body id="body" onload="displayCart()">
+    <div class="head">
+        <h1 id="mart"><marquee behavior="" direction="left">Mini Mart Online Shop <img src="./image/shopping_cart_FILL0_wght400_GRAD0_opsz48.png" width="50px" alt=""></marquee></h1>
+        <input  type="text" placeholder="add items" id="user">
+        <input type="text" placeholder="add amount" id="user">
+        <button onclick="addToCart()" class="cart btn btn-success">Add to Cart <img src="./image/shopping_cart_FILL0_wght400_GRAD0_opsz48.png" alt=""></button>
+        <hr class="item">
+        <tr>
+            <td>S/N </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <hr>
+        <table class="table table-striped" id="myTable">
+             <tr>
+                <td>S/N </td>
+                <td>items</td>
+                <td>action</td>
+            </tr>
+        </table>
+    </div> 
+    <script>
+
+        var cart = []
+        function addToCart(){
+            if(user.value == "") {
+                alert("please, add item")
+            } else{
+                cart.push(user.value)
+            displayCart()
+            console.log(cart)
+            }
+        }  
+        function displayCart(){
+            myTable.innerHTML = ""
+            // alert("working")
+            for (var index = 0; index < cart.length; index++) {
+                console.log(cart[index])
+
+                myTable.innerHTML += `
+                <tr>
+                    <td>${index +1}</td>
+                    <td>${cart[index]}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="deleteItem(${index})">delete</button>
+                        <button class="btn btn-success"  onclick="editItem(${index})">edit</button>
+                    </td>
+                </tr>`
+
+            }
+        }
+        function deleteItem(userIndex){
+            // alert(userIndex)
+            cart.splice(userIndex,1)
+            displayCart()
+            console.log(cart)
+        }
+
+        function editItem(userIndex){
+            // alert(userIndex)
+            var replacement = prompt("what index do you want replace")
+            cart.splice(userIndex,1,replacement)
+            displayCart()
+            console.log(cart)
+        }
+
+
     
+
+    </script>
 </body>
 </html>
